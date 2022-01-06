@@ -4,7 +4,7 @@
 #define STRAT_REPLACE_ANY_TYPE_OF_JUMP_WITH_ALWAYS_JUMP 1
 #define HOOK_WITH_FUNCHOOK 0
 #define HOOK_WITH_DETOURS 1
-#define HOW_TO_HOOK HOOK_WITH_FUNCHOOK
+#define HOW_TO_HOOK HOOK_WITH_DETOURS
 #if HOW_TO_HOOK == HOOK_WITH_FUNCHOOK
 #include <funchook.h>
 #ifdef _M_ARM64
@@ -19,6 +19,7 @@
 #pragma comment(lib, "distorm.lib")
 #endif
 #elif HOW_TO_HOOK == HOOK_WITH_DETOURS
+#include <windows.h>
 #include <detours.h>
 #pragma comment(lib, "detours.lib")
 void* funchook_create(void)
