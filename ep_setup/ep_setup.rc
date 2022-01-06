@@ -49,11 +49,10 @@ END
 //
 // Version
 //
-#include "..\version.h"
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION VER_FILE
- PRODUCTVERSION VER_PRODUCT
+ FILEVERSION 22000,376,41,2
+ PRODUCTVERSION 22000,376,41,2
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -70,12 +69,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "VALINET Solutions SRL"
             VALUE "FileDescription", "ExplorerPatcher Setup Program"
-            VER_FILE_STRING
+            VALUE "FileVersion", "22000.376.41.2"
             VALUE "InternalName", "ep_setup.exe"
             VALUE "LegalCopyright", "Copyright (C) 2006-2022 VALINET Solutions SRL. All rights reserved."
             VALUE "OriginalFilename", "ep_setup.exe"
             VALUE "ProductName", "ExplorerPatcher"
-            VER_PRODUCT_STRING
+            VALUE "ProductVersion", "22000.376.41.2"
         END
     END
     BLOCK "VarFileInfo"
@@ -90,9 +89,11 @@ END
 // RCDATA
 //
 
-IDR_EP_AMD64            RCDATA             "..\\build\\Release\\ExplorerPatcher.amd64.dll"
+IDR_EP_AMD64            RCDATA                  "..\\build\\Release\\ExplorerPatcher.amd64.dll"
 
-IDR_EP_IA32             RCDATA             "..\\build\\Release\\ExplorerPatcher.IA-32.dll"
+IDR_EP_IA32             RCDATA                  "..\\build\\Release\\ExplorerPatcher.IA-32.dll"
+
+IDR_EP_ARM64            RCDATA                  "C:\\Users\\Leond\\Documents\\Programming\\ExplorerPatcher\\build\\Release\\ExplorerPatcher.arm64.dll"
 
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////

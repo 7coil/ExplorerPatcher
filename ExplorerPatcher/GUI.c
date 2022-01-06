@@ -79,6 +79,8 @@ LONG NTAPI OnVex(PEXCEPTION_POINTERS ExceptionInfo)
             Eip
 #elif defined (_AMD64_)
             Rip
+#elif defined(_ARM64_)
+            Pc
 #else
 #error not implemented
 #endif
@@ -1198,8 +1200,8 @@ static BOOL GUI_Build(HDC hDC, HWND hwnd, POINT pt)
                                                     CONTEXT ctx;
                                                     ZeroMemory(&ctx, sizeof(CONTEXT));
                                                     ctx.ContextFlags = CONTEXT_DEBUG_REGISTERS;
-                                                    ctx.Dr7 = 0x404;
-                                                    ctx.Dr1 = (ULONG_PTR)pvRtlQueryElevationFlags;
+                                                    // ctx.Dr7 = 0x404;
+                                                    // ctx.Dr1 = (ULONG_PTR)pvRtlQueryElevationFlags;
 
                                                     if (SetThreadContext(GetCurrentThread(), &ctx))
                                                     {
@@ -1226,8 +1228,8 @@ static BOOL GUI_Build(HDC hDC, HWND hwnd, POINT pt)
                                                             dwError = GetLastError();
                                                         }
 
-                                                        ctx.Dr7 = 0x400;
-                                                        ctx.Dr1 = 0;
+                                                        // ctx.Dr7 = 0x400;
+                                                        // ctx.Dr1 = 0;
                                                         SetThreadContext(GetCurrentThread(), &ctx);
 
                                                         if (pi.hProcess)

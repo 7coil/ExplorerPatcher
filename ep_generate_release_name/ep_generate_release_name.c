@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "../ExplorerPatcher/queryversion.h"
 
 int main(int argc, char** argv)

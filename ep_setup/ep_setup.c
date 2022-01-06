@@ -95,7 +95,7 @@ BOOL SetupUninstallEntry(BOOL bInstall, WCHAR* wszPath)
                 if (!dwLastError)
                 {
                     PathRemoveFileSpecW(wszPath + 1);
-                    wcscat_s(wszPath + 1, MAX_PATH - 2, L"\\" _T(PRODUCT_NAME) L".amd64.dll");
+                    wcscat_s(wszPath + 1, MAX_PATH - 2, L"\\" _T(PRODUCT_NAME) L".arm64.dll");
                     HMODULE hEP = LoadLibraryExW(wszPath + 1, NULL, LOAD_LIBRARY_AS_DATAFILE);
                     if (hEP)
                     {
@@ -333,6 +333,19 @@ int WINAPI wWinMain(
             wcscat_s(wszPath, MAX_PATH, L"\\" _T(PRODUCT_NAME) L".amd64.dll");
             bOk = InstallResource(TRUE, hInstance, IDR_EP_AMD64, wszPath);
         }
+        if (argc >= 2)
+        {
+            wcsncpy_s(wszPath, MAX_PATH, wargv[1], MAX_PATH);
+        }
+        else
+        {
+            GetCurrentDirectoryW(MAX_PATH, wszPath);
+        }
+        if (bOk)
+        {
+            wcscat_s(wszPath, MAX_PATH, L"\\" _T(PRODUCT_NAME) L".arm64.dll");
+            bOk = InstallResource(TRUE, hInstance, IDR_EP_ARM64, wszPath);
+        }
         return 0;
     }
 
@@ -517,7 +530,7 @@ int WINAPI wWinMain(
                     wszArgs[2] = L' ';
                     wszArgs[3] = L'"';
                     SHGetFolderPathW(NULL, SPECIAL_FOLDER, NULL, SHGFP_TYPE_CURRENT, wszArgs + 4);
-                    wcscat_s(wszArgs, MAX_PATH, _T(APP_RELATIVE_PATH) L"\\" _T(PRODUCT_NAME) L".amd64.dll\"");
+                    wcscat_s(wszArgs, MAX_PATH, _T(APP_RELATIVE_PATH) L"\\" _T(PRODUCT_NAME) L".arm64.dll\"");
                     wprintf(L"%s\n", wszArgs);
                     WCHAR wszApp[MAX_PATH * 2];
                     GetSystemDirectoryW(wszApp, MAX_PATH * 2);
@@ -559,12 +572,18 @@ int WINAPI wWinMain(
         }
         if (bOk)
         {
+            PathRemoveFileSpecW(wszPath);
+            wcscat_s(wszPath, MAX_PATH, L"\\" _T(PRODUCT_NAME) L".arm64.dll");
+            bOk = InstallResource(bInstall, hInstance, IDR_EP_ARM64, wszPath);
+        }
+        if (bOk)
+        {
             bOk = GetWindowsDirectoryW(wszPath, MAX_PATH);
         }
         if (bOk)
         {
             wcscat_s(wszPath, MAX_PATH, L"\\dxgi.dll");
-            bOk = InstallResource(bInstall, hInstance, IDR_EP_AMD64, wszPath);
+            bOk = InstallResource(bInstall, hInstance, IDR_EP_ARM64, wszPath);
         }
         if (bOk)
         {
@@ -573,7 +592,7 @@ int WINAPI wWinMain(
         if (bOk)
         {
             wcscat_s(wszPath, MAX_PATH, L"\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\dxgi.dll");
-            bOk = InstallResource(bInstall, hInstance, IDR_EP_AMD64, wszPath);
+            bOk = InstallResource(bInstall, hInstance, IDR_EP_ARM64, wszPath);
         }
         if (bOk)
         {
@@ -582,7 +601,7 @@ int WINAPI wWinMain(
         if (bOk)
         {
             wcscat_s(wszPath, MAX_PATH, L"\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\dxgi.dll");
-            bOk = InstallResource(bInstall, hInstance, IDR_EP_AMD64, wszPath);
+            bOk = InstallResource(bInstall, hInstance, IDR_EP_ARM64, wszPath);
         }
         if (bOk)
         {
